@@ -8,7 +8,7 @@ unsigned int rand15(void);
 unsigned int rand16(void);
 unsigned int rand32(void);
 unsigned int randrange(unsigned int max);
-double rand_uniform();
+double rand_uniform(void);
 double rand_normal(double mu, double sigma);
 void test_rand();
 
