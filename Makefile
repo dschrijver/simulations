@@ -11,7 +11,7 @@ rungekutta: clean_rungekutta rungekutta.out
 	@./rungekutta.out
 
 rungekutta.out:
-	@clang rungekutta.c "../gnuplot_i/gnuplot_i.c" -o rungekutta.out -Wall -Wextra
+	@clang rungekutta.c "gnuplot_i/gnuplot_i.c" -o rungekutta.out -Wall -Wextra
 
 clean_rungekutta:
 	@rm -f rungekutta.out

@@ -1,7 +1,7 @@
 #include <stdio.h> // printf()
 #include <stdlib.h> // malloc() 
 
-#include "../gnuplot_i/gnuplot_i.h"
+#include "gnuplot_i/gnuplot_i.h"
 #include "rungekutta.h"
 
 
