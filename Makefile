@@ -7,11 +7,20 @@ ising.out:
 clean_ising:
 	@rm -f ising.out
 
-rungekutta: clean_rungekutta rungekutta.out
-	@./rungekutta.out
+pendulum: clean_pendulum pendulum.out
+	@./pendulum.out
 
-rungekutta.out:
-	@clang rungekutta.c "gnuplot_i/gnuplot_i.c" -o rungekutta.out -Wall -Wextra
+pendulum.out:
+	@clang pendulum.c runge_kutta.c "gnuplot_i/gnuplot_i.c" -o pendulum.out -Wall -Wextra -lm
 
-clean_rungekutta:
-	@rm -f rungekutta.out
+clean_pendulum:
+	@rm -f pendulum.out
+
+lorenz: clean_lorenz lorenz.out
+	@./lorenz.out
+
+lorenz.out:
+	@clang lorenz.c runge_kutta.c "gnuplot_i/gnuplot_i.c" -o lorenz.out -Wall -Wextra -lm
+
+clean_lorenz:
+	@rm -f lorenz.out
