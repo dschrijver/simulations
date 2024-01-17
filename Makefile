@@ -24,3 +24,12 @@ lorenz.out:
 
 clean_lorenz:
 	@rm -f lorenz.out
+
+double_pendulum: clean_double_pendulum double_pendulum.out
+	@./double_pendulum.out
+
+double_pendulum.out:
+	@clang double_pendulum.c runge_kutta.c -o double_pendulum.out -Wall -Wextra -lm
+
+clean_double_pendulum:
+	@rm -f double_pendulum.out

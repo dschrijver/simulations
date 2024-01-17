@@ -55,6 +55,5 @@ void print_list(int len, double *x) {
     for (int i = 0; i < len-1; i++) {
         printf("%f, ", x[i]);
     }
-    printf("%f", x[len-1]);
-    printf("]\n");
+    printf("%f]\n", x[len-1]);
 }
