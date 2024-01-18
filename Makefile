@@ -33,3 +33,12 @@ double_pendulum.out:
 
 clean_double_pendulum:
 	@rm -f double_pendulum.out
+
+multiple_double_pendulums: clean_multiple_double_pendulums multiple_double_pendulums.out
+	@./multiple_double_pendulums.out
+
+multiple_double_pendulums.out:
+	@clang multiple_double_pendulums.c runge_kutta.c -o multiple_double_pendulums.out -Wall -Wextra -lm
+
+clean_multiple_double_pendulums:
+	@rm -f multiple_double_pendulums.out

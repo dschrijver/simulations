@@ -50,6 +50,28 @@ void ode_solve_n(void (*f)(double, double*, double*),
     }
 }
 
+void runge_kutta_nstep(void (*f)(double, double*, double*),
+                       double dt, int dim, double t, double y[dim], double y_new[dim]) {
+    double c1[dim], c2[dim], c3[dim], c4[dim];
+    double var2[dim], var3[dim], var4[dim];
+    f(t, y, c1);
+    for (int j = 0; j < dim; j++) {
+        var2[j] = y[j]+0.5*dt*c1[j];
+    }
+    f(t+0.5*dt, var2, c2);
+    for (int j = 0; j < dim; j++) {
+        var3[j] = y[j]+0.5*dt*c2[j];
+    }
+    f(t+0.5*dt, var3, c3);
+    for (int j = 0; j < dim; j++) {
+        var4[j] = y[j]+dt*c3[j];
+    }
+    f(t+dt, var4, c4);
+    for (int j = 0; j < dim; j++) {
+        y_new[j] = y[j] + CONST*dt*(c1[j] + 2*c2[j] + 2*c3[j]+ c4[j]);
+    }
+}
+
 void print_list(int len, double *x) {
     printf("[");
     for (int i = 0; i < len-1; i++) {
