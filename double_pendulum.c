@@ -11,11 +11,11 @@ void double_pendulum(double t, double *y, double *dy) {
     double dtheta1 = y[1];
     double theta2 = y[2];
     double dtheta2 = y[3];
-    dy[0] = y[1];
+    dy[0] = dtheta1;
     dy[1] = (-g*(2.0*m1+m2)*sin(theta1)-m2*g*sin(theta1-2.0*theta2)-2.0*sin(theta1-theta2)*m2*(dtheta2*dtheta2*l2+dtheta1*dtheta1*l1*cos(theta1-theta2)))/
             (l1*(2.0*m1+m2-m2*cos(2.0*theta1-2.0*theta2)));
-    dy[2] = y[3];
-    dy[3] = (2.0*sin(theta1-theta2)*(dtheta1*dtheta1*l1*(m1*m2)+g*(m1+m2)*cos(theta1) + dtheta2*dtheta2*l2*m2*cos(theta1-theta2)))/
+    dy[2] = dtheta2;
+    dy[3] = (2.0*sin(theta1-theta2)*(dtheta1*dtheta1*l1*(m1+m2)+g*(m1+m2)*cos(theta1) + dtheta2*dtheta2*l2*m2*cos(theta1-theta2)))/
             (l2*(2.0*m1+m2-m2*cos(2.0*theta1-2.0*theta2)));
 }
 
@@ -67,9 +67,8 @@ int main(void) {
             fprintf(temp, "%lf %lf\n", x_2[j], y_2[j]);
         }
         fflush(temp);
-
-        fprintf(gnuplotPipe, "plot \"data.temp\" index 0 title \"Pendulum 1\" with linespoints linestyle 1, ");
-        fprintf(gnuplotPipe, "'' index 1 title \"Pendulum 2\" with linespoints linestyle 2\n");
+        fprintf(gnuplotPipe, "plot \"data.temp\" index 0 title \"θ_{1,2}(0) = π/2\" with linespoints linestyle 1, ");
+        fprintf(gnuplotPipe, "'' index 1 title \"Δθ_{1,2}(0) = 0.001\" with linespoints linestyle 2\n");
         fflush(gnuplotPipe);
 
         usleep(sleep_time*i_step);

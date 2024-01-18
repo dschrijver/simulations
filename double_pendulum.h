@@ -12,7 +12,7 @@
 #define t1 (double) 30.0
 #define dt (double) 0.01
 #define N  (int)    ((t1-t0)/dt)
-double theta0_1[4] = {0.6*pi, 0, 0.6*pi, 0};
-double theta0_2[4] = {0.6*pi-0.001, 0, 0.6*pi-0.001, 0};
+double theta0_1[4] = {0.5*pi, 0, 0.5*pi, 0};
+double theta0_2[4] = {0.5*pi-0.001, 0, 0.5*pi-0.001, 0};
 
 #endif
