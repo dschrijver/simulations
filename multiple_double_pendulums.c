@@ -42,7 +42,14 @@ int main(void) {
     fprintf(gnuplotPipe, "set terminal wxt size 900,900\n");
     fprintf(gnuplotPipe, "set xrange [%f:%f]\n", -(l1+l2)-0.2*l2, l1+l2+0.2*l2);
     fprintf(gnuplotPipe, "set yrange [%f:%f]\n", -(l1+l2)-0.2*l2, l1+l2+0.2*l2);
-    fprintf(gnuplotPipe, "set style line 1 linecolor rgb '#0000ff' linetype 1 linewidth 2 pointtype 7 pointsize 1.5\n");
+
+    double color_step = ((double)0xff/((double)N_p));
+    for (int j = 0; j < N_p; j++) {
+        fprintf(gnuplotPipe, "set style line %d linecolor rgb '#%02x00%02x' linetype 1 linewidth 2 pointtype 7 pointsize 1.5\n",
+                j+1, (int)(color_step*((double)j)), (int)((double)0xff - color_step*((double)j)));
+    }
+
+    
     fflush(gnuplotPipe);
 
     double x[N_p][3]={0};
@@ -69,9 +76,9 @@ int main(void) {
             fflush(temp);
             fprintf(gnuplotPipe, "plot ");
             for (int j = 0; j < (N_p-1); j++) {
-                fprintf(gnuplotPipe, "\"data.temp\" index %d title '' with linespoints linestyle 1, ", j);
+                fprintf(gnuplotPipe, "\"data.temp\" index %d title '' with linespoints linestyle %d, ", j, j+1);
             }
-            fprintf(gnuplotPipe, "\"data.temp\" index %d title '' with linespoints linestyle 1\n", N_p-1);
+            fprintf(gnuplotPipe, "\"data.temp\" index %d title '' with linespoints linestyle %d\n", N_p-1, N_p);
 
             fflush(gnuplotPipe);
             usleep(sleep_time*i_step);

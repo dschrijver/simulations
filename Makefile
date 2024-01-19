@@ -7,6 +7,7 @@ ising.out:
 clean_ising:
 	@rm -f ising.out
 
+
 pendulum: clean_pendulum pendulum.out
 	@./pendulum.out
 
@@ -15,6 +16,7 @@ pendulum.out:
 
 clean_pendulum:
 	@rm -f pendulum.out
+
 
 lorenz: clean_lorenz lorenz.out
 	@./lorenz.out
@@ -25,6 +27,7 @@ lorenz.out:
 clean_lorenz:
 	@rm -f lorenz.out
 
+
 double_pendulum: clean_double_pendulum double_pendulum.out
 	@./double_pendulum.out
 
@@ -33,6 +36,7 @@ double_pendulum.out:
 
 clean_double_pendulum:
 	@rm -f double_pendulum.out
+
 
 multiple_double_pendulums: clean_multiple_double_pendulums multiple_double_pendulums.out
 	@./multiple_double_pendulums.out

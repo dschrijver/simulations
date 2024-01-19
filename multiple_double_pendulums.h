@@ -8,13 +8,13 @@
 #define l1  (double) 1.0 // [m]
 #define l2  (double) 1.0 // [m]
 
-#define t0      (double) 0.0
-#define t1      (double) 30.0
-#define dt      (double) 0.01
+#define t0      (double) 0.0   // [s]
+#define t1      (double) 30.0  // [s]
+#define dt      (double) 0.01  // [s]
 #define N       (int)    ((t1-t0)/dt)
 #define N_p     (int)    40
-#define dp      (double) 0.0001
-#define theta0  (double) (0.5*pi) 
-#define fps     (double) 30.0
+#define dp      (double) 0.0001   // Starting angle difference between pendulums [rad]
+#define theta0  (double) (0.5*pi) // [rad]
+#define fps     (double) 30.0  // [1/s]
 
 #endif
