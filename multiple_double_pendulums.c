@@ -1,4 +1,4 @@
-#include <stdio.h> // printf(), getchar(), fopen(), popen(), fclose(), pclose(), fprintf(), fflush(), 
+#include <stdio.h> // printf(), getchar(), fopen(), popen(), fclose(), pclose(), fprintf(), fflush() 
 #include <math.h> // cos(), sin()
 #include <unistd.h> // usleep()
 

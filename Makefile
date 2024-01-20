@@ -46,3 +46,13 @@ multiple_double_pendulums.out:
 
 clean_multiple_double_pendulums:
 	@rm -f multiple_double_pendulums.out
+
+
+animate_double_pendulum: clean_animate_double_pendulum animate_double_pendulum.out
+	@./animate_double_pendulum.out
+
+animate_double_pendulum.out:
+	@clang animate_double_pendulum.c runge_kutta.c -o animate_double_pendulum.out -Wall -Wextra -lraylib -lm
+
+clean_animate_double_pendulum:
+	@rm -f animate_double_pendulum.out
