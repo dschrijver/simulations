@@ -58,6 +58,7 @@ int main(void) {
                 theta[j][2] = theta[j][0];
                 theta[j][3] = 0;
             }
+            if (paused) paused = 0;
         }
 
         start_time = GetTime();
