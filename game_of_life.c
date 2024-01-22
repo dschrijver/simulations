@@ -52,12 +52,8 @@ void evolve_grid(int grid[num_cells_x][num_cells_y]) {
 }
 
 int main(void) {
-    printf("Test: %d\n", (0-1)%50);
-
-
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE|FLAG_WINDOW_TRANSPARENT);
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screen_width, screen_height, "Double Pendulum");
-    // SetWindowState(FLAG_WINDOW_UNDECORATED); // Hide border/titlebar; omit if you want them there.
 
     double start_time, end_time, frame_time, dt = 1.0/FPS;
     int evo_freq = EVO_FREQ_INI;
@@ -210,17 +206,31 @@ int main(void) {
         }
 
         mouse_wheel_movement = GetMouseWheelMove();
-        if ((mouse_wheel_movement == 1.0) && (evo_freq < ((int)FPS))) {
-            evo_freq++;
+        if (mouse_wheel_movement == 1.0) {
+            if ((evo_freq < ((int)FPS))) {
+                evo_freq++;
+            } else {
+                evo_freq += (int)FPS;
+            }
         } 
         if ((mouse_wheel_movement == -1.0) && (evo_freq > 1)) {
-            evo_freq--;
+            if ((evo_freq <= ((int)FPS))) {
+                evo_freq--;
+            } else {
+                evo_freq -= (int)FPS;
+            }
         } 
 
         if (!paused) {
-            if ((GetTime() - last_evo) > 1.0/((double)evo_freq)) {
-                evolve_grid(grid);
-                last_evo = GetTime();
+            if (evo_freq > FPS) {
+                for (int i = 0; i < (evo_freq/((int)FPS)); i++) {
+                    evolve_grid(grid);
+                }
+            } else {
+                if ((GetTime() - last_evo) > 1.0/((double)evo_freq)) {
+                    evolve_grid(grid);
+                    last_evo = GetTime();
+                }
             }
         }
 
