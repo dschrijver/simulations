@@ -1,12 +1,12 @@
-#ifndef ANIMATE_DOUBLE_PENDULUM_H
-#define ANIMATE_DOUBLE_PENDULUM_H
+#ifndef ANIMATE_DOUBLE_PENDULUM_2_H
+#define ANIMATE_DOUBLE_PENDULUM_2_H
 
 
 #define SCREEN_WIDTH    (int) 1000
 #define SCREEN_HEIGHT   (int) SCREEN_WIDTH
 #define DOT_SIZE        (int) 10
-#define FPS          (double) 60.0 
-#define ACCURACY        (int) 1   // Number of physics steps per frame
+#define FPS          (double) 30.0 
+#define ACCURACY        (int) 4   // Number of physics steps per frame
 
 #define pi           (double) 3.14159265358979323846
 #define grav         (double) 9.81 // gravitational acceleration [m/s^2]
@@ -17,7 +17,7 @@
 #define MARGIN          (int) 4*DOT_SIZE // [pixels]
 #define LENGTH       (double) ((double)SCREEN_WIDTH-(double)MARGIN)/(2.0*(l1+l2)) // [pixels/m]
 
-#define N_p             (int) 4095      // Number of pendulums
+#define N_p             (int) 4092      // Number of pendulums
 #define dt           (double) (1.0/(((double)ACCURACY)*FPS))  // [s]
 #define N               (int) ((t1-t0)/dt)
 #define dp           (double) (0.000001*pi)   // Starting angle difference between pendulums [rad]

@@ -14,15 +14,17 @@ void double_pendulum(double t, double *y, double *dy) {
     double theta2 = y[2];
     double dtheta2 = y[3];
     dy[0] = dtheta1;
-    dy[1] = (-g*(2.0*m1+m2)*sin(theta1)-m2*g*sin(theta1-2.0*theta2)-2.0*sin(theta1-theta2)*m2*(dtheta2*dtheta2*l2+dtheta1*dtheta1*l1*cos(theta1-theta2)))/
+    dy[1] = (-grav*(2.0*m1+m2)*sin(theta1)-m2*grav*sin(theta1-2.0*theta2)-2.0*sin(theta1-theta2)*m2*(dtheta2*dtheta2*l2+dtheta1*dtheta1*l1*cos(theta1-theta2)))/
             (l1*(2.0*m1+m2-m2*cos(2.0*theta1-2.0*theta2)));
     dy[2] = dtheta2;
-    dy[3] = (2.0*sin(theta1-theta2)*(dtheta1*dtheta1*l1*(m1+m2)+g*(m1+m2)*cos(theta1) + dtheta2*dtheta2*l2*m2*cos(theta1-theta2)))/
+    dy[3] = (2.0*sin(theta1-theta2)*(dtheta1*dtheta1*l1*(m1+m2)+grav*(m1+m2)*cos(theta1) + dtheta2*dtheta2*l2*m2*cos(theta1-theta2)))/
             (l2*(2.0*m1+m2-m2*cos(2.0*theta1-2.0*theta2)));
 }
 
 int main(void) {
+    SetConfigFlags(FLAG_WINDOW_TRANSPARENT); // Configures window to be transparent
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Double Pendulum");
+    SetWindowState(FLAG_WINDOW_UNDECORATED); // Hide border/titlebar; omit if you want them there.
     rlSetLineWidth(2.0);
 
     double t = 0.0;
@@ -38,7 +40,7 @@ int main(void) {
     double old_time = 0.0, new_time = 0.0; // For FPS counter
     double start_time = 0.0, end_time = 0.0; // For FPS management
     char fps_counter[10];
-    Color color = {255, 0, 0, 255};
+    Color color = {255, 255, 0, 255};
     double color_step = (((double)255)/((double)N_p));
     int paused = 0;
     
@@ -64,15 +66,16 @@ int main(void) {
         start_time = GetTime();
         if (((phys_step % ACCURACY) == 0) && !paused) {
             BeginDrawing();
-            ClearBackground(RAYWHITE);
-            color.r = 255;
+            ClearBackground(BLANK);
+            // ClearBackground(RAYWHITE);
+            color.g = 255;
             color.b = 0;
             for (int j = 0; j < N_p; j++) {
                 x[0] = l1*sin(theta[j][0]);
                 x[1] = x[0]+l2*sin(theta[j][2]);
                 y[0] = -l1*cos(theta[j][0]);
                 y[1] = y[0]-l2*cos(theta[j][2]);
-                color.r = 255 - (char)(((double)j)*color_step);
+                color.g = 255 - (char)(((double)j)*color_step);
                 color.b = (char)(((double)j)*color_step);
                 DrawCircle((int)(((double)LENGTH)*x[0] + ((double)SCREEN_WIDTH)/2.0), 
                             (int)(-((double)LENGTH)*y[0] + ((double)SCREEN_HEIGHT)/2.0), 
@@ -90,12 +93,12 @@ int main(void) {
                             (int)(-((double)LENGTH)*y[1] + ((double)SCREEN_HEIGHT)/2.0), 
                             color);
             }
-            DrawText("Press ESCAPE to exit, SPACE to pause and ENTER to reset", 20, 20, 20, DARKGRAY);
+            // DrawText("Press ESCAPE to exit, SPACE to pause and ENTER to reset", 20, 20, 20, DARKGRAY);
             new_time = GetTime();
             sprintf(fps_counter, "%.01f fps", 
                     1.0/(new_time-old_time));
             old_time = new_time;
-            DrawText(fps_counter, SCREEN_WIDTH-100, 20, 20, DARKGRAY);
+            // DrawText(fps_counter, SCREEN_WIDTH-100, 20, 20, DARKGRAY);
             DrawCircle((int)(((double)SCREEN_WIDTH)/2.0), (int)(((double)SCREEN_HEIGHT)/2.0), 
                         DOT_SIZE, BLACK); 
             EndDrawing();
@@ -112,7 +115,7 @@ int main(void) {
         }
             
         end_time = GetTime();
-        WaitTime(dt-(end_time-start_time));
+        if ((dt-(end_time-start_time))>0.0) WaitTime(dt-(end_time-start_time));
     }
     CloseWindow();
 

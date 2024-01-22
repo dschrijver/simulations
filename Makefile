@@ -56,3 +56,23 @@ animate_double_pendulum.out:
 
 clean_animate_double_pendulum:
 	@rm -f animate_double_pendulum.out
+
+
+animate_double_pendulum_2: clean_animate_double_pendulum_2 animate_double_pendulum_2.out
+	@./animate_double_pendulum_2.out
+
+animate_double_pendulum_2.out:
+	@clang animate_double_pendulum_2.c runge_kutta.c -o animate_double_pendulum_2.out -Wall -Wextra -lraylib -lm
+
+clean_animate_double_pendulum_2:
+	@rm -f animate_double_pendulum_2.out
+
+
+game_of_life: clean_game_of_life game_of_life.out
+	@./game_of_life.out
+
+game_of_life.out:
+	@clang game_of_life.c -o game_of_life.out -Wall -Wextra -lraylib -lm
+
+clean_game_of_life:
+	@rm -f game_of_life.out
