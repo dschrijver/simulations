@@ -2,10 +2,20 @@ ising: clean_ising ising.out
 	@./ising.out
 
 ising.out:
-	@clang ising.c rand.c -o ising.out -Wall -Wextra -lm
+	@clang ising.c rand.c -o ising.out -Wall -Wextra -lraylib -lm
 
 clean_ising:
 	@rm -f ising.out
+
+
+ising_windows: clean_ising_windows ising.exe
+	@wine ising.exe
+
+ising.exe:
+	@x86_64-w64-mingw32-gcc-win32 ising.c rand.c -o ising.exe -I ./raylib/src -L ./raylib/src -lraylib -lopengl32 -lgdi32 -lwinmm
+
+clean_ising_windows:
+	@rm -f ising.exe
 
 
 pendulum: clean_pendulum pendulum.out
