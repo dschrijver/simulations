@@ -62,6 +62,7 @@ int main(void) {
     margin_y = (SCREEN_HEIGHT_INI%cell_size)/2;
 
     Color colors[2] = {{0, 0, 255, 255}, {255, 0, 0, 255}};
+    Color background_color = {200, 200, 200, 200};
     float mouse_wheel_movement;
     char cell_size_string[32];
 
@@ -101,10 +102,13 @@ int main(void) {
                                   4*cell_size/5, 4*cell_size/5, RAYWHITE);
                 }
             }
+            DrawRectangle(10, 10, 915, 80, background_color);
             sprintf(cell_size_string, "CELL_SIZE = %d px", cell_size);
-            DrawText(cell_size_string, 20, 40, 20, DARKGRAY);
             DrawText("Press ESCAPE to exit, use SCROLL_WHEEL to change cell size, hit ENTER to continue", 
                      20, 20, 20, DARKGRAY);
+            DrawText("Change the size of the cells and resize the window before starting the simulation", 
+                     20, 40, 20, DARKGRAY);
+            DrawText(cell_size_string, 20, 60, 20, DARKGRAY);
         EndDrawing();
         SwapScreenBuffer(); // Flip the back buffer to screen (front buffer)
 
@@ -117,7 +121,7 @@ int main(void) {
     int grid[num_cells_x][num_cells_y], paused = 0;
     double last_evo = GetTime(), last_frame = GetTime(), new_frame;
     char info_string[128], constants_string_1[64], constants_string_2[128];
-    Color background_color = {200, 200, 200, 200};
+
     for (int i = 0; i < num_cells_x; i++) {
         for (int j = 0; j < num_cells_y; j++) {
             grid[i][j] = (int)(rand_uniform()*2.0)*2-1;
