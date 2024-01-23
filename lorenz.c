@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-#include "gnuplot_i/gnuplot_i.h" // For plotting
 #include "runge_kutta.h" // ode_solve_n()
 #include "lorenz.h"
 
@@ -17,33 +16,18 @@ int main(void) {
     double t[N];
     double output[N][3];
     ode_solve_n(lorenz, t0, t1, dt, input, 3, t, output);
-    double output_T[3][N];
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < N; j++) {
-            output_T[i][j] = output[j][i];
-        }
-    }
+    
 
     // Plotting
-    gnuplot_ctrl *h1;
-    h1 = gnuplot_init();
-    gnuplot_cmd(h1, "set title 'Lorenz system'");
-    gnuplot_set_axislabel(h1, "x", "x");
-    gnuplot_set_axislabel(h1, "y", "y");
-    gnuplot_set_axislabel(h1, "z", "z");
-    gnuplot_setterm(h1, "wxt", 1000, 700);
-    gnuplot_setstyle(h1, "lines");
-    char title[64];
-    sprintf(title, "σ=%.2f, ρ=%.2f, β=%.2f", sigma, rho, beta);
-    gnuplot_splot(h1, output_T[0], output_T[1], output_T[2], N, title);
-
-    printf("Press enter to close the program: ");
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF) {
-        continue;
+    FILE *gnuplot_pipe = popen("gnuplot -persistent", "w");
+    FILE *temp = fopen("data.temp", "w");
+    for (int j = 0; j < N; j++) {
+        fprintf(temp, "%lf %lf %lf\n", output[j][0], output[j][1], output[j][2]);
     }
+    fprintf(gnuplot_pipe, "set terminal wxt size 1000, 700\nset xlabel \"x\"\nset ylabel \"y\"\nset zlabel \"z\"\n");
+    fprintf(gnuplot_pipe, "splot \"data.temp\" title \"Lorenz system\" with lines\n");
 
-    gnuplot_close(h1);
-
+    fclose(temp);
+    pclose(gnuplot_pipe);
     return 0;
 }

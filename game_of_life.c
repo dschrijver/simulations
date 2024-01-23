@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <math.h> // Raylib requires math.h
 #include <raylib.h>
-#include <stdlib.h> // malloc()
 
 #include "game_of_life.h"
 
