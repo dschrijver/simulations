@@ -10,7 +10,7 @@
 int screen_width = SCREEN_WIDTH_INI, screen_height = SCREEN_HEIGHT_INI;
 int cell_size, num_cells_x, num_cells_y, margin_x, margin_y;
 
-void update_grid_size(int screen_width, int screen_height);
+void update_grid_size();
 int mod_neg(int x, int y);
 void evolve_grid(int grid[num_cells_x][num_cells_y]);
 

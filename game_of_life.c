@@ -6,7 +6,7 @@
 #include "game_of_life.h"
 
 
-void update_grid_size(int screen_width, int screen_height) {
+void update_grid_size() {
     num_cells_x = screen_width / cell_size;
     num_cells_y = screen_height / cell_size;
     margin_x = (screen_width%cell_size)/2;
@@ -78,17 +78,17 @@ int main(void) {
         if (IsWindowResized()) {
             screen_width = GetScreenWidth();
             screen_height = GetScreenHeight();
-            update_grid_size(screen_width, screen_height);
+            update_grid_size();
         }
 
         mouse_wheel_movement = GetMouseWheelMove();
         if ((mouse_wheel_movement == 1.0) && (screen_width>3*cell_size) && (screen_height>3*cell_size)) {
             cell_size++;
-            update_grid_size(screen_width, screen_height);
+            update_grid_size();
         } 
         if ((mouse_wheel_movement == -1.0) && (cell_size > 10)) {
             cell_size--;
-            update_grid_size(screen_width, screen_height);
+            update_grid_size();
         } 
 
         BeginDrawing();
@@ -191,7 +191,7 @@ int main(void) {
                     grid[i][j] = 0;
                 }
             }
-            paused = !paused;
+            paused = 1;
         }
 
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
